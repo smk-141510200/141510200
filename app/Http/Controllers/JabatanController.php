@@ -89,6 +89,8 @@ class JabatanController extends Controller
     public function edit($id)
     {
         //
+        $jabatan=jabatan::find($id); 
+        return view('jabatan.edit',compact('jabatan')); 
     }
 
     /**
@@ -101,6 +103,60 @@ class JabatanController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data=Request::all(); 
+        $kode_lama = jabatan::where('id',$id)->first()->kode_jabatan; 
+        $nama_lama = jabatan::where('id',$id)->first()->nama_jabatan; 
+        $uang_lama = jabatan::where('id',$id)->first()->besaran_uang; 
+        if($data['kode_jabatan'] != $kode_lama) 
+          { 
+            $rules=['kode_jabatan'=>'required|unique:jabatans', 
+                    'nama_jabatan'=>'required', 
+                    'besaran_uang'=>'required|numeric']; 
+         
+          } 
+        elseif ($data['nama_jabatan'] != $nama_lama) 
+          { 
+            $rules=['kode_jabatan'=>'required', 
+                    'nama_jabatan'=>'required|unique:jabatans', 
+                    'besaran_uang'=>'required|numeric']; 
+          } 
+        elseif ($data['besaran_uang'] != $uang_lama) 
+          { 
+            $rules=['kode_jabatan'=>'required', 
+                    'nama_jabatan'=>'required', 
+                    'besaran_uang'=>'required|numeric|unique:jabatans']; 
+          }   
+        else 
+          { 
+            $rules=['kode_jabatan'=>'required', 
+                     'nama_jabatan'=>'required', 
+                     'besaran_uang'=>'required|numeric']; 
+          } 
+            $sms=['kode_jabatan.required'=>'Harus Di Isi', 
+                  'nama_jabatan.unique'=> 'Nama '.$data['nama_jabatan'].' Sudah ada', 
+                  'kode_jabatan.unique'=>'Kode '.$data['kode_jabatan'].' Sudah ada', 
+                  'besaran_uang.unique'=>'Besaran Uang '.$data['besaran_uang'].' Sudah ada', 
+                  'nama_jabatan.required'=>'Harus Di Isi', 
+                  'besaran_uang.required'=>'Harus Diisi', 
+                  'besaran_uang.numeric'=>'Harus Angka']; 
+            $valid=Validator::make(Input::all(),$rules,$sms); 
+         if ($valid->fails()) 
+            { 
+              alert()->error('Data Salah');   
+              return redirect('jabatan/'.$id.'/edit') 
+              ->withErrors($valid) 
+              ->withInput(); 
+            } 
+         else 
+            { 
+             jabatan::where('id', $id)->first()->update([ 
+             'kode_jabatan'=> $data['kode_jabatan'], 
+             'nama_jabatan'=> $data['nama_jabatan'], 
+             'besaran_uang'=> $data['besaran_uang'] 
+             ]
+             ); 
+         } 
+         return redirect('jabatan'); 
     }
 
     /**

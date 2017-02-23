@@ -1,4 +1,4 @@
-@extends('layouts.aa')
+@extends('layouts.menu')
 @section('content')
 
 <div class="col-md-6 col-md-offset-3">
@@ -8,17 +8,17 @@
 				<table class="table">
 					<thead>
 						<tr class="success">
-							<th>Kode golongan</th>
-							<th>Nama golongan</th>
-							<th>Besaran Uang</th>
+							<th><center>Kode Golongan</center></th>
+							<th><center>Nama Golongan</center></th>
+							<th><center>Besaran Uang</center></th>
 							<th colspan="3"><center>Aksi</center></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($golongan as $data)
 						<tr>
-							<td>{{$data->kode_golongan}}</td>
-							<td>{{$data->nama_golongan}}</td>
+							<td><center>{{$data->kode_golongan}}</center></td>
+							<td><center>{{$data->nama_golongan}}</center></td>
 							<td><?php echo 'Rp.' . number_format($data->besaran_uang, 2,",","."); ?></td>
 							<td align="right">
                                     <a href="{{route('golongan.edit', $data->id)}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
@@ -30,6 +30,7 @@
                                     'model' => $data
                                   ])
                                 </td>
+                                
 						</tr>
 					@endforeach		
 					</tbody>

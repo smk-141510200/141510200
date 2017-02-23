@@ -1,4 +1,4 @@
-@extends('layouts.aa')
+@extends('layouts.menu')
 @section('content')
 <div align="center">
     <div class="col-lg-10 col-md-offset-1" >
@@ -26,7 +26,7 @@
                                     <td>{{$data->golongan->nama_golongan}}</td>
                                     <td>{{$data->status}}</td>
                                     <td>{{$data->jumlah_anak}}</td>
-                                    <td>{{$data->besaran_uang}}</td>
+                                    <td><?php echo 'Rp.' . number_format($data->besaran_uang, 2,",","."); ?></td>
                                     <td align="right">
                                     <a href="{{route('tunjangan.edit', $data->id)}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
                                 </td>

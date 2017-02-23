@@ -73,7 +73,6 @@
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i>
                                             Logout
                                         </a>
-
                                         <form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;">
                                             <?php echo e(csrf_field()); ?>
 

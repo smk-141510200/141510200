@@ -1,4 +1,4 @@
-@extends('layouts.aa')
+@extends('layouts.menu')
 @section('content')
 <div align="center">
 	<div class="col-lg-9 col-md-offset-2" >

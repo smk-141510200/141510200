@@ -1,42 +1,41 @@
-@extends('layouts.menu')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <title>Jabatan</title>
 <div class="col-md-6 col-md-offset-3">
 	<div class="panel panel-default">
 		<div class="panel-heading">Tambah Jabatan</div>
 			<div class="panel-body">
-				<form class="form-horizontal" action="{{route('jabatan.store')}}" method="POST">	
-					<div class="form-group{{ $errors->has('kode_jabatan') ? ' has-error' : '' }}">
+				<form class="form-horizontal" action="<?php echo e(route('jabatan.store')); ?>" method="POST">	
+					<div class="form-group<?php echo e($errors->has('kode_jabatan') ? ' has-error' : ''); ?>">
 							<label for="kode_jabatan" class="col-md-4 control-label">Kode Jabatan :</label>
 								<div class="col-md-6">
 									<input type="text" name="kode_jabatan" placeholder="Kode Jabatan" class="form-control">
-									@if ($errors->has('kode_jabatan'))
+									<?php if($errors->has('kode_jabatan')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('kode_jabatan') }}</strong>
+                                        <strong><?php echo e($errors->first('kode_jabatan')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
 								</div>
 					</div>
-					<div class="form-group{{ $errors->has('nama_jabatan') ? ' has-error' : '' }}">
+					<div class="form-group<?php echo e($errors->has('nama_jabatan') ? ' has-error' : ''); ?>">
 							<label for="nama_jabatan" class="col-md-4 control-label">Nama Jabatan :</label>
 								<div class="col-md-6">
 									<input type="text" name="nama_jabatan" placeholder="Nama Jabatan" class="form-control">
-									@if ($errors->has('nama_jabatan'))
+									<?php if($errors->has('nama_jabatan')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('nama_jabatan') }}</strong>
+                                        <strong><?php echo e($errors->first('nama_jabatan')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
 								</div>
 					</div>
-					<div class="form-group{{ $errors->has('besaran_uang') ? ' has-error' : '' }}">
+					<div class="form-group<?php echo e($errors->has('besaran_uang') ? ' has-error' : ''); ?>">
 							<label for="besaran_uang" class="col-md-4 control-label">Besaran Uang :</label>
 								<div class="col-md-6">
 									<input type="text" name="besaran_uang" placeholder="Besaran Uang" class="form-control">
-									@if ($errors->has('besaran_uang'))
+									<?php if($errors->has('besaran_uang')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('besaran_uang') }}</strong>
+                                        <strong><?php echo e($errors->first('besaran_uang')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
 								</div>
 					</div>
 					<div class="form-group">
@@ -50,4 +49,5 @@
 		</div>
 	</div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

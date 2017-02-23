@@ -73,7 +73,6 @@
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i>
                                             Logout
                                         </a>
-
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
@@ -200,8 +199,7 @@
                 </div>
                 @yield('content')
             </div>
-
-            </div>
+        </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->

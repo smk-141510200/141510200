@@ -53,7 +53,7 @@ class GolonganController extends Controller
                 'besaran_uang.numeric'=>'Harus Angka'];
         $valid=Validator::make(Input::all(),$rules,$sms);
         if ($valid->fails()) {
-
+            
             alert()->error('Data Salah');  
             return redirect('golongan/create')
             ->withErrors($valid)
@@ -67,7 +67,6 @@ class GolonganController extends Controller
         return redirect('golongan');
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -88,6 +87,8 @@ class GolonganController extends Controller
     public function edit($id)
     {
         //
+        $golongan=golongan::find($id); 
+        return view('golongan.edit',compact('golongan')); 
     }
 
     /**
@@ -100,7 +101,70 @@ class GolonganController extends Controller
     public function update(Request $request, $id)
     {
         //
-    }
+        $data=Request::all(); 
+        $kode_lama = golongan::where('id',$id)->first()->kode_golongan; 
+        $nama_lama = golongan::where('id',$id)->first()->nama_golongan; 
+        $uang_lama = golongan::where('id',$id)->first()->besaran_uang; 
+        if($data['kode_golongan'] != $kode_lama) 
+          { 
+            $rules=['kode_golongan'=>'required|unique:golongans', 
+                    'nama_golongan'=>'required', 
+                    'besaran_uang'=>'required|numeric']; 
+         
+          } 
+        elseif ($data['nama_golongan'] != $nama_lama) 
+          { 
+            $rules=['kode_golongan'=>'required', 
+                    'nama_golongan'=>'required|unique:golongans', 
+                    'besaran_uang'=>'required|numeric']; 
+          } 
+        elseif ($data['besaran_uang'] != $uang_lama) 
+          { 
+            $rules=['kode_golongan'=>'required', 
+                    'nama_golongan'=>'required', 
+                    'besaran_uang'=>'required|numeric|unique:golongans']; 
+          }   
+        else 
+          { 
+            $rules=['kode_golongan'=>'required', 
+                     'nama_golongan'=>'required', 
+                     'besaran_uang'=>'required|numeric']; 
+          } 
+            $sms=['kode_golongan.required'=>'Harus Di Isi', 
+                  'nama_golongan.unique'=> 'Nama '.$data['nama_golongan'].' Sudah ada', 
+                  'kode_golongan.unique'=>'Kode '.$data['kode_golongan'].' Sudah ada', 
+                  'besaran_uang.unique'=>'Besaran Uang '.$data['besaran_uang'].' Sudah ada', 
+                  'nama_golongan.required'=>'Harus Di Isi', 
+                  'besaran_uang.required'=>'Harus Diisi', 
+                  'besaran_uang.numeric'=>'Harus Angka']; 
+            $valid=Validator::make(Input::all(),$rules,$sms); 
+         if ($valid->fails()) 
+            { 
+              alert()->error('Data Salah');   
+              return redirect('golongan/'.$id.'/edit') 
+              ->withErrors($valid) 
+              ->withInput(); 
+            } 
+         else 
+            { 
+             golongan::where('id', $id)->first()->update([ 
+             'kode_golongan'=> $data['kode_golongan'], 
+             'nama_golongan'=> $data['nama_golongan'], 
+             'besaran_uang'=> $data['besaran_uang'] 
+             ]
+             ); 
+         } 
+         return redirect('golongan'); 
+     } 
+  
+     /** 
+156      * Remove the specified resource from storage. 
+157      * 
+158      * @param  int  $id 
+159      * @return \Illuminate\Http\Response 
+160      */ 
+
+    
 
     /**
      * Remove the specified resource from storage.
