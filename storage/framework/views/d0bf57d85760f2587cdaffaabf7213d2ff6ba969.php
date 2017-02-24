@@ -1,29 +1,28 @@
-@extends('layouts.menu')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <div class="panel panel-primary">
                     <div class="panel-heading"><center>Tambah User</center></div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('pegawai.store') }}" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" role="form" method="POST" action="<?php echo e(route('pegawai.store')); ?>" enctype="multipart/form-data">
+                            <?php echo e(csrf_field()); ?>
 
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+
+                            <div class="form-group<?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>" autofocus>
 
-                                    @if ($errors->has('name'))
+                                    <?php if($errors->has('name')): ?>
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong><?php echo e($errors->first('name')); ?></strong>
                                         </span>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('permission') ? ' has-error' : '' }}">
+                            <div class="form-group<?php echo e($errors->has('permission') ? ' has-error' : ''); ?>">
                                 <label for="name" class="col-md-4 control-label">Permission</label>
 
                                 <div class="col-md-6">
@@ -33,39 +32,39 @@
                                     <option value="HRD">HRD</option>
                                     </select>
 
-                                    @if ($errors->has('permission'))
+                                    <?php if($errors->has('permission')): ?>
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('permission') }}</strong>
+                                            <strong><?php echo e($errors->first('permission')); ?></strong>
                                         </span>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group<?php echo e($errors->has('email') ? ' has-error' : ''); ?>">
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                    <input id="email" type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>">
 
-                                    @if ($errors->has('email'))
+                                    <?php if($errors->has('email')): ?>
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <strong><?php echo e($errors->first('email')); ?></strong>
                                         </span>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div class="form-group<?php echo e($errors->has('password') ? ' has-error' : ''); ?>">
                                 <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="password">
 
-                                    @if ($errors->has('password'))
+                                    <?php if($errors->has('password')): ?>
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
+                                            <strong><?php echo e($errors->first('password')); ?></strong>
                                         </span>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -87,68 +86,68 @@
                                 <table class="table">
                     <tr>
                     <td>
-                    <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
+                    <div class="form-group<?php echo e($errors->has('nip') ? ' has-error' : ''); ?>">
                             <label for="nip" class="col-md-3 control-label">NIP</label>
                             <div class="col-md-6">
                                 <input id="nip" type="text" class="form-control" name="nip" ">
 
-                                @if ($errors->has('nip'))
+                                <?php if($errors->has('nip')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('nip') }}</strong>
+                                        <strong><?php echo e($errors->first('nip')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                         </td>
                     </tr>
                     <tr><td>
-                        <div class="form-group{{ $errors->has('jabatan_id') ? ' has-error' : '' }}">
+                        <div class="form-group<?php echo e($errors->has('jabatan_id') ? ' has-error' : ''); ?>">
                             <label for="jabatan_id" class="col-md-3 control-label">Jabatan</label>
                             <div class="col-md-6">
                                 <select id="jabatan_id" type="text" class="form-control" name="jabatan_id" ">
                                     <option value="">Pilih</option>
-                                    @foreach($jabatan as $data)
-                                    <option value="{!! $data->id !!}">{!! $data->nama_jabatan !!}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $jabatan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                    <option value="<?php echo $data->id; ?>"><?php echo $data->nama_jabatan; ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                 </select>
 
-                                @if ($errors->has('jabatan_id'))
+                                <?php if($errors->has('jabatan_id')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('jabatan_id') }}</strong>
+                                        <strong><?php echo e($errors->first('jabatan_id')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </td></tr>
                     <tr><td>
-                        <div class="form-group{{ $errors->has('golongan_id') ? ' has-error' : '' }}">
+                        <div class="form-group<?php echo e($errors->has('golongan_id') ? ' has-error' : ''); ?>">
                             <label for="golongan_id" class="col-md-3 control-label">Golongan</label>
                             <div class="col-md-6">
                                 <select id="golongan_id" type="text" class="form-control" name="golongan_id" >
                                 <option value="">Pilih</option>
-                                    @foreach($golongan as $data)
-                                    <option value="{!! $data->id !!}">{!! $data->nama_golongan !!}</option>
-                                    @endforeach  
+                                    <?php $__currentLoopData = $golongan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                    <option value="<?php echo $data->id; ?>"><?php echo $data->nama_golongan; ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>  
                                     </select>
-                                @if ($errors->has('golongan_id'))
+                                <?php if($errors->has('golongan_id')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('golongan_id') }}</strong>
+                                        <strong><?php echo e($errors->first('golongan_id')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </td></tr>
                     <tr><td>
-                        <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
+                        <div class="form-group<?php echo e($errors->has('photo') ? ' has-error' : ''); ?>">
                             <label for="photo" class="col-md-3 control-label">Photo</label>
                             <div class="col-md-6">
                                 <input id="photo" type="file" name="photo" >
                             
-                                @if ($errors->has('photo'))
+                                <?php if($errors->has('photo')): ?>
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('photo') }}</strong>
+                                        <strong><?php echo e($errors->first('photo')); ?></strong>
                                     </span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </td></tr>
@@ -169,4 +168,6 @@
             </div>
             </div>
  </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

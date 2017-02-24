@@ -30,7 +30,7 @@ class GolonganController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
         $golongan = golongan::all();
         return view('golongan.create',compact('golongan'));
     }
@@ -42,7 +42,7 @@ class GolonganController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $rules=['kode_golongan'=>'required|unique:golongans',
                 'nama_golongan'=>'required',
                 'besaran_uang'=>'required|numeric'];
@@ -85,7 +85,7 @@ class GolonganController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
         //
         $golongan=golongan::find($id); 
         return view('golongan.edit',compact('golongan')); 
@@ -99,7 +99,7 @@ class GolonganController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         //
         $data=Request::all(); 
         $kode_lama = golongan::where('id',$id)->first()->kode_golongan; 

@@ -37,3 +37,4 @@ class CreatePegawaisTable extends Migration
         Schema::dropIfExists('pegawais');
     }
 }
+
